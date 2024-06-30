@@ -325,7 +325,14 @@ view_driver(struct view *view, enum request request)
 		 * followed. */
 		if (view->prev && view->prev != view) {
 			end_update(view, true);
-			maximize_view(view->prev, true);
+			// If we are closing a view in a split, and that view has been open from
+			// that split, then reopen the previous view into the split
+			if (view == display[1]  && view->prev != display[0]) {
+				open_view(view->prev->prev, view->prev, OPEN_SPLIT);
+			}
+			else {
+				maximize_view(view->prev, true);
+			}
 			view->prev = view;
 			break;
 		}

@@ -897,10 +897,6 @@ open_view(struct view *prev, struct view *view, enum open_flags flags)
 		return;
 	}
 
-	/* don't use a child view as previous view */
-	if (prev && prev->parent && prev == display[1])
-		prev = prev->parent;
-
 	if (view != display[0])
 		view->parent = NULL;
 
